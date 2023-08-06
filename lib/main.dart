@@ -1,4 +1,5 @@
 import 'package:doctor_app/routes/routes.dart';
+import 'package:doctor_app/screens/Sign%20up%20Screen/bindings/sign_up_bindings.dart';
 import 'package:doctor_app/utils/siz-config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         initialRoute: Pages.onBoardScreen,
+        initialBinding: SignUpBindings(),
         getPages: Pages.routes,
       );
     });

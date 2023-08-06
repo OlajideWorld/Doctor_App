@@ -15,7 +15,7 @@ class Routes {
   static const loginPage = "/loginpage";
   static const loadingScreen = "/loading";
   static const forgetPage = "/forgetpage";
-  // static const selectionPage = "/selectionpage";
+  static const selectionPage = "/selectionpage";
   static const profilePage = "/profiepage";
   static const settingsPage = "/settingspage";
   static const forgotPassword = "/forgotpassword";

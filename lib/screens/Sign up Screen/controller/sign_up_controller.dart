@@ -7,6 +7,7 @@ class SignUpController extends GetxController {
   static SignUpController instance = Get.find();
   File? image;
   RxString medicalCards = "Allians".obs;
+  var currentIndex = 1;
   @override
   void onInit() {
     // TODO: implement onInit
