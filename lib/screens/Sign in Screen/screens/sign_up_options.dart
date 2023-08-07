@@ -79,7 +79,7 @@ class SignInOptionsScreens extends StatelessWidget {
             ),
             SizedBox(height: heightSize(37)),
             GestureDetector(
-              onTap: () => Get.to(() => const SignInNumber(
+              onTap: () => Get.to(() => SignInNumber(
                     isSignIn: true,
                     HeadText: "Sign In",
                   )),

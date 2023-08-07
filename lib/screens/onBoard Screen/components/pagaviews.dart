@@ -44,7 +44,9 @@ PageViewWidget(String image, BuildContext context, String Header,
       SizedBox(height: heightSize(58)),
       showButton == true
           ? GestureDetector(
-              onTap: () => Get.to(() => SignInOptionsScreens()),
+              onTap: () {
+                Get.to(() => SignInOptionsScreens());
+              },
               child: buttons(context, "Get Started", heightSize(50), width,
                   Color(0xFF022F8E)),
             )

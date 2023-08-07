@@ -1,20 +1,39 @@
 import 'package:doctor_app/commons/buttons.dart';
 import 'package:doctor_app/routes/routes.dart';
+import 'package:doctor_app/screens/Sign%20up%20Screen/controller/sign_up_controller.dart';
 import 'package:doctor_app/screens/Sign%20up%20Screen/screens/userdetails.dart';
+import 'package:doctor_app/screens/homescreen/components/homeAppBar.dart';
 import 'package:doctor_app/screens/homescreen/screens/homescreen.dart';
 import 'package:doctor_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../Services/api_call.dart';
 import '../../../utils/fonts.dart';
 import '../../../utils/sizes.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class ReceiveOTPScreen extends StatelessWidget {
+class ReceiveOTPScreen extends StatefulWidget {
   final bool isSignIn;
   final String Headtext;
   const ReceiveOTPScreen(
       {super.key, required this.isSignIn, required this.Headtext});
+
+  @override
+  State<ReceiveOTPScreen> createState() => _ReceiveOTPScreenState();
+}
+
+class _ReceiveOTPScreenState extends State<ReceiveOTPScreen> {
+  final SignUpController controller = SignUpController.instance;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      controller.isLoading.value = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +63,7 @@ class ReceiveOTPScreen extends StatelessWidget {
                   ),
                   SizedBox(width: widthSize(117)),
                   Text(
-                    Headtext,
+                    widget.Headtext,
                     style: TextStyle(
                         color: headerText,
                         fontSize: fontSize(20),
@@ -78,7 +97,7 @@ class ReceiveOTPScreen extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: '+62 89123214124',
+                      text: '+234 03339174310',
                       style: TextStyle(
                         color: headerText,
                         fontSize: fontSize(14),
@@ -100,6 +119,12 @@ class ReceiveOTPScreen extends StatelessWidget {
                   length: 4,
                   backgroundColor: background,
                   keyboardType: TextInputType.number,
+                  // onChanged: (value) {
+                  //   setState(() {
+                  //     controller.otp.value = value;
+                  //   });
+                  //   debugPrint(controller.otp.value);
+                  // },
                   pinTheme: PinTheme(
                       shape: PinCodeFieldShape.box,
                       inactiveColor: const Color(0xFFDEDEDE),
@@ -111,15 +136,38 @@ class ReceiveOTPScreen extends StatelessWidget {
               ),
               SizedBox(height: heightSize(28)),
               GestureDetector(
-                onTap: () {
-                  if (isSignIn == true) {
-                    Get.to(() => HomeScreen());
+                onTap: () async {
+                  setState(() {
+                    controller.isLoading.value = true;
+                  });
+                  var data = {
+                    "mobile": controller.phoneNumber.value,
+                    "otp": controller.otp.value
+                  };
+
+                  final message = await ApiCalls().verifyOTP(data);
+                  if (message != null) {
+                    if (widget.isSignIn == true) {
+                      Get.to(() => HomeScreen());
+                    } else {
+                      Get.toNamed(Routes.userdetails);
+                    }
                   } else {
-                    Get.toNamed(Routes.userdetails);
+                    setState(() {
+                      controller.isLoading.value = false;
+                    });
                   }
                 },
-                child: buttons(context, "Continue", heightSize(50), width,
-                    const Color(0xFF022F8E)),
+                child: controller.isLoading.value == true
+                    ? SizedBox(
+                        height: heightSize(50),
+                        width: widthSize(50),
+                        child: const CircularProgressIndicator(
+                          color: headerText,
+                        ),
+                      )
+                    : buttons(context, "Continue", heightSize(50), width,
+                        const Color(0xFF022F8E)),
               ),
               SizedBox(height: heightSize(21)),
               Text.rich(

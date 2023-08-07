@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignUpBindings extends Bindings {
+  RxString number = "".obs;
+  
+
   @override
   void dependencies() {
     // TODO: implement dependencies

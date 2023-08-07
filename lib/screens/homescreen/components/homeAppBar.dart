@@ -8,7 +8,7 @@ import '../../../utils/colors.dart';
 import '../../../utils/fonts.dart';
 import '../../../utils/sizes.dart';
 
-final SignUpController controller = SignUpController();
+final SignUpController controller = SignUpController.instance;
 
 homeAppBar(BuildContext context) {
   return SizedBox(

@@ -14,7 +14,7 @@ import '../components/our_services.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final SignUpController controller = SignUpController();
+  final SignUpController controller = SignUpController.instance;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
