@@ -1,9 +1,13 @@
+import 'package:doctor_app/Services/api_call.dart';
 import 'package:doctor_app/commons/customButtomBar.dart';
+import 'package:doctor_app/models/service_model_response.dart';
 import 'package:doctor_app/screens/Sign%20up%20Screen/controller/sign_up_controller.dart';
+import 'package:doctor_app/screens/Services%20Screen/screens/our_services_screen.dart';
 import 'package:doctor_app/utils/colors.dart';
 import 'package:doctor_app/utils/fonts.dart';
 import 'package:doctor_app/utils/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../components/healthPackages.dart';
 import '../components/health_articles.dart';
@@ -15,6 +19,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final SignUpController controller = SignUpController.instance;
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -63,7 +68,12 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: heightSize(19)),
-                    ourServicesList(context),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(() => const OurServicesScreen());
+                      },
+                      child: ourServicesList(context),
+                    ),
                     SizedBox(height: heightSize(24)),
                     SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),

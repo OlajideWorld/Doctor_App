@@ -11,10 +11,10 @@ class ApiCalls {
     return req;
   }
 
-  // login(Map<String, String> data) async {
-  //   final req = await ApiServices().postRequest(data, "api/login");
-  //   return req;
-  // }
+  fetchServices() async {
+    final req = await ApiServices().getServices("api/services");
+    return req;
+  }
 
   // forgetpassword(Map<String, String> data) async {
   //   final req =

@@ -67,7 +67,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
                   width: widthSize(100),
                   child: Row(
                     children: [
-                      getIcons(Icons.store, 3, "Store", "forgetpage"),
+                      getIcons(Icons.store, 3, "Store", "storescreen"),
                       const Spacer(),
                       getIcons(Icons.person, 4, "Profile", "forgetpage")
                     ],

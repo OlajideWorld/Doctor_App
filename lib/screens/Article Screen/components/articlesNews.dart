@@ -1,18 +1,20 @@
-import 'package:doctor_app/screens/Article%20Screen/screens/article_pages.dart';
-import 'package:doctor_app/utils/fonts.dart';
-import 'package:doctor_app/utils/sizes.dart';
+import 'package:doctor_app/screens/Article%20Screen/screens/articles_details.dart';
+import 'package:doctor_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-healthArticlesWidget(
-    BuildContext context, String text1, String text2, String image) {
+import '../../../utils/fonts.dart';
+import '../../../utils/sizes.dart';
+
+articlesNews(BuildContext context, String text1, String text2, String image,
+    bool isSelected) {
   final width = MediaQuery.of(context).size.width;
   return GestureDetector(
     onTap: () {
-      Get.to(() => const ArticlesPages());
+      Get.to(() => const ArticlesDetails());
     },
     child: Container(
-      height: heightSize(68),
+      height: heightSize(86),
       width: width,
       padding: EdgeInsets.symmetric(
           vertical: heightSize(6), horizontal: widthSize(12)),
@@ -39,7 +41,7 @@ healthArticlesWidget(
                   text1,
                   style: TextStyle(
                     color: const Color(0xFF030C54),
-                    fontSize: fontSize(16),
+                    fontSize: fontSize(14),
                     fontFamily: usedFonts().GTWalsheim,
                     fontWeight: FontWeight.w500,
                     height: 1.29,
@@ -56,7 +58,11 @@ healthArticlesWidget(
               ),
             ),
           ]),
-        )
+        ),
+        const Spacer(),
+        Icon(Icons.bookmark_rounded,
+            size: heightSize(15),
+            color: isSelected == true ? headerText : Colors.grey)
       ]),
     ),
   );

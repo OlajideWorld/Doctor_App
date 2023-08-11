@@ -8,9 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedClass {
   Future<void> setString(String tokenKey, String token) async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    await _prefs.setString(tokenKey, token);
-    log("Stored Succesfully");
-    debugPrint("Stored Succesfully");
+    await _prefs.setString(tokenKey, token).then((value) {
+      log("Stored Succesfully");
+      debugPrint("Stored Succesfully");
+    });
   }
 
   Future<String?> getString(String tokenKey) async {

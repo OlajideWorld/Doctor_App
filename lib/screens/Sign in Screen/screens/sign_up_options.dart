@@ -2,6 +2,7 @@ import 'package:doctor_app/commons/buttons.dart';
 import 'package:doctor_app/screens/Sign%20in%20Screen/components/sign_in_buttons.dart';
 import 'package:doctor_app/screens/Sign%20in%20Screen/screens/sign_in_number.dart';
 import 'package:doctor_app/screens/Sign%20up%20Screen/screens/sign_up_screen.dart';
+import 'package:doctor_app/screens/homescreen/screens/homescreen.dart';
 import 'package:doctor_app/screens/onBoard%20Screen/components/pagaviews.dart';
 import 'package:doctor_app/utils/colors.dart';
 import 'package:doctor_app/utils/fonts.dart';
@@ -94,8 +95,13 @@ class SignInOptionsScreens extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     fontFamily: usedFonts().workSans)),
             SizedBox(height: heightSize(22)),
-            SignInButtons(context, "assets/FacebookLogo.png",
-                "Sign In With Facebook", buttonColor2, true),
+            GestureDetector(
+              onTap: () {
+                Get.to(() => HomeScreen());
+              },
+              child: SignInButtons(context, "assets/FacebookLogo.png",
+                  "Sign In With Facebook", buttonColor2, true),
+            ),
             SizedBox(height: heightSize(12)),
             SignInButtons(context, "assets/GoogleLogo.png",
                 "Sign In With Google", background, false),

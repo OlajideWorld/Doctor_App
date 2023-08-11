@@ -1,5 +1,6 @@
 import 'package:doctor_app/screens/Sign%20up%20Screen/screens/sign_up_screen.dart';
 import 'package:doctor_app/screens/Sign%20up%20Screen/screens/userdetails.dart';
+import 'package:doctor_app/screens/Store%20Screens/screens/store_screen.dart';
 import 'package:doctor_app/screens/homescreen/screens/homescreen.dart';
 import 'package:doctor_app/screens/onBoard%20Screen/pages/onboardscreen.dart';
 import 'package:get/get.dart';
@@ -11,11 +12,11 @@ class Routes {
   static const homeScreen = '/homescreen';
   static const onBoardScreen = '/onboard';
   static const signinscreen = '/loginscreen';
-  static const userdetails = "/";
+  static const userdetails = "/userdetails";
   static const loginPage = "/loginpage";
   static const loadingScreen = "/loading";
   static const forgetPage = "/forgetpage";
-  static const selectionPage = "/selectionpage";
+  static const storeScreen = "/storescreen";
   static const profilePage = "/profiepage";
   static const settingsPage = "/settingspage";
   static const forgotPassword = "/forgotpassword";
@@ -32,6 +33,7 @@ class Pages {
     GetPage(
         name: Routes.homeScreen,
         page: () => HomeScreen(),
-        binding: SignUpBindings())
+        binding: SignUpBindings()),
+    GetPage(name: Routes.storeScreen, page: () => const StoreScreen())
   ];
 }

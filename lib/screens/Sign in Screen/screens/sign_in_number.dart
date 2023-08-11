@@ -87,7 +87,7 @@ class _SignInNumberState extends State<SignInNumber> {
                   borderSide: BorderSide(color: Color(0xFFCCCCCC)),
                 ),
               ),
-              initialCountryCode: 'NI',
+              initialCountryCode: '+234',
               onChanged: (phone) {
                 setState(() {
                   controller.phoneNumber.value = phone.number;
@@ -107,7 +107,7 @@ class _SignInNumberState extends State<SignInNumber> {
                 final otp = await ApiCalls().sendOTP(data);
                 if (otp != null) {
                   setState(() {
-                    controller.otp.value = otp['body'].toString();
+                    controller.otp.value = otp['body']['token'].toString();
                   });
 
                   debugPrint(controller.otp.value);

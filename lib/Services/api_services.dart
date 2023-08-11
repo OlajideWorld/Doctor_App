@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:doctor_app/Services/Shared%20Preferences/sharedPreferences.dart';
 import 'package:doctor_app/Services/Shared%20Preferences/shared_keys.dart';
+import 'package:doctor_app/models/service_model_response.dart';
 import 'package:doctor_app/models/verityOtp_response.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,7 +39,8 @@ class ApiServices {
     return jsondata;
   }
 
-  Future<void> verifyOtp(Map<String, String> data, String url) async {
+  Future<VerifyOtpResponse?> verifyOtp(
+      Map<String, String> data, String url) async {
     String reqUrl = "$baseurl$url";
     debugPrint(reqUrl);
 
@@ -50,44 +52,49 @@ class ApiServices {
           body: jsonEncode(data));
 
       if (response.statusCode == 200) {
-        debugPrint(response.body);
         final verifyOtpResponse = verifyOtpResponseFromJson(response.body);
 
-        debugPrint(verifyOtpResponse.data.toString());
-        await SharedClass()
-            .setString(SharedKeys.tokenKey, verifyOtpResponse.data.token);
+        debugPrint(verifyOtpResponse.data.token);
+
+        await SharedClass().setString(
+            SharedKeys.tokenKey, "23|hZLTlPXxfBHUeLe8ojvktiSN0Qq2zKpiceZEjZZy");
 
         getSuccessSnackBar(verifyOtpResponse.data.token.toString());
+        return verifyOtpResponse;
       }
     } catch (e) {
       getErrorSnackBar(e.toString());
     }
   }
 
-  // Future<Map> postRequest(Map<String, String> data, String url) async {
-  //   String reqUrl = "$baseurl$url";
-  //   debugPrint(reqUrl);
+  Future<ServiceResponse?> getServices(String url) async {
+    String reqUrl = "$baseurl$url";
+    debugPrint(reqUrl);
+    Map jsondata = {};
+    // final token = await SharedClass().getString(SharedKeys.tokenKey);
+    final token = "23|hZLTlPXxfBHUeLe8ojvktiSN0Qq2zKpiceZEjZZy";
+    debugPrint(token);
+    try {
+      http.Response response = await http.get(
+        Uri.parse(reqUrl),
+        headers: <String, String>{
+          // 'Content-Type': 'application/json',
+          "Authorization": "Bearer $token"
+        },
+      );
 
-  //   debugPrint(data.toString());
-  //   Map jsondata = {};
-  //   try {
-  //     http.Response response = await http.post(Uri.parse(reqUrl),
-  //         headers: <String, String>{'Content-Type': 'application/json'},
-  //         body: jsonEncode(data));
-
-  //     debugPrint(response.body);
-
-  //     debugPrint(response.body);
-  //     final datas = jsonDecode(response.body);
-  //     jsondata = datas;
-  //     getSuccessSnackBar("Success \tUser verified");
-  //   } catch (e) {
-  //     Get.back();
-  //     getErrorSnackBar(e.toString());
-  //   }
-  //   log(jsondata.toString());
-  //   return jsondata;
-  // }
+      debugPrint(response.body);
+      if (response.statusCode == 200) {
+        ServiceResponse jsondata = serviceResponseFromJson(response.body);
+        return jsondata;
+      }
+      getSuccessSnackBar("Success \t Services received");
+    } catch (e) {
+      debugPrint(e.toString());
+      getErrorSnackBar(e.toString());
+    }
+    log(jsondata.toString());
+  }
 
   // Future<Map> postRequestWithToken(Map data, String url) async {
   //   String reqUrl = "$baseurl$url";
